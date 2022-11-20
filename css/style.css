@@ -6,7 +6,7 @@ html{
      color: #333
 }
 
-body{margin-top:50px;background-color:#e3e3e3;}
+body{margin-top:50px;background-color:#fff;}
 
 footer{
     width:100%;
@@ -112,16 +112,13 @@ header .avatar img {
     font-size: 18px;
 }
 
-nav {
-    z-index: 999;
-}
-
 #navbar {
     position: fixed;
     top:0px;
     width:100%;
     background-color: #fff;
     border-bottom:2px solid #e3e3e3;
+    z-index: 999;
 }
 
 .section{
