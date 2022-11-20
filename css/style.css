@@ -112,6 +112,10 @@ header .avatar img {
     font-size: 18px;
 }
 
+nav{
+    z-index:99999;
+}
+
 #navbar {
     position: fixed;
     top:0px;
