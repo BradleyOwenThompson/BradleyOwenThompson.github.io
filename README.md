@@ -1,2 +1,1 @@
-# BradleyOwenThompson.github.io
-# Personal Website
+# [BradleyOwenThompson.github.io](BradleyOwenThompson.github.io)
