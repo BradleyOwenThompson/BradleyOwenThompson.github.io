@@ -3,9 +3,48 @@
 html{
     font-family:  'Open Sans', sans-serif;
      -webkit-font-smoothing: antialiased;
+     color: #333
 }
 
-body{height: 900px;margin-top:50px;}
+body{height: 9000px;margin-top:50px;background-color:#e3e3e3;}
+ 
+.container {
+    max-width: 70em;
+    margin: auto;
+}
+.container-wide {
+    max-width: 90em;
+    margin: auto;
+}
+
+
+a.url {
+    outline: none;
+    text-decoration: none;
+    padding: 2px 1px 0;
+}
+  
+a:link.url {
+    color: #005aa3;
+}
+  
+a:visited.url {
+    color: #005aa3;
+}
+  
+a:focus.url {
+    border-bottom: 1px solid;
+}
+  
+a:hover.url {
+    border-bottom: 1px solid;
+}
+
+#LinkedIn{
+    height: 30px;
+    display:block; 
+}
+ 
 
 header {
 	background: url('../images/header-background.jpg');
@@ -27,7 +66,7 @@ header .overlay{
     background-image: linear-gradient( 169deg, #003d806b 10%, #00000099 100%);
 }
 
-header .avatar{
+#header .avatar{
     text-align: center;
 }
 
@@ -54,19 +93,14 @@ header .avatar img {
 #header .text-content h3 {
 	font-family: 'Open Sans', sans-serif;
 	margin-bottom: 10px;
-    font-size: 23px;
+    font-size: 20px;
 }
 
 #header .text-content p {
     margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
 	font-family: 'Open Sans', sans-serif;
     font-size: 18px;
-}
-
-.container {
-    max-width: 70em;
-    margin: auto;
 }
 
 #navbar {
@@ -75,4 +109,51 @@ header .avatar img {
     width:100%;
     background-color: #fff;
     border-bottom:2px solid #e3e3e3;
+}
+
+.section{
+    padding:0px 5px 5px 5px;
+    background-color:  #ffffff;
+    margin-top:10px;
+}
+
+.section .title{
+    margin: 12px 0px 0px 10px;
+    font-size: 20px;
+    text-align:center;
+    padding-bottom:10px;
+    border-bottom: 2px solid #cacaca;
+}
+.section .bubble_container{
+    padding: 10px;
+}
+
+.section .bubble_container .content{
+    border-radius: 10px; 
+    border: 1.5px solid #e3e3e3;
+    padding: 10px;
+}
+
+.section .bubble_container .content h3{
+    font-size: 17px;
+    text-align: center;
+    padding-bottom: 2px;
+    border-bottom: 2px solid #e3e3e3;
+}
+
+.section .bubble_container .content img{
+    display: block;
+    width: 30%;
+    margin: auto;
+    margin-top:10px;
+}
+
+.section .bubble_container .content img.uni{
+    width: 50%;
+}
+
+.section .bubble_container .content p{
+    font-size: 14px;
+    margin-top: 2px; 
+    text-align: center;
 }
