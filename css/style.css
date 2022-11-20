@@ -112,8 +112,8 @@ header .avatar img {
     font-size: 18px;
 }
 
-nav{
-    z-index:99999;
+nav {
+    z-index: 999;
 }
 
 #navbar {
