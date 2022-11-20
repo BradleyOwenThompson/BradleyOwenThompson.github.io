@@ -75,4 +75,5 @@ header .avatar img {
     width:100%;
     background-color: #fff;
     border-bottom:2px solid #e3e3e3;
+    border-top:2px solid #e3e3e3;
 }
