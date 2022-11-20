@@ -50,8 +50,8 @@ a:hover.url {
 
 #Social{
     height: 30px;
-    display:block; 
-    margin:auto;
+    display:inline-block; 
+    margin: 0 5px 0 5px;
 }
  
 
