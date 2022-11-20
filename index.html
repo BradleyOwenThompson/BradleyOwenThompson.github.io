@@ -11,6 +11,7 @@
             html, body{
                 padding: 0px;
                 margin: 0px;
+                background-color: #e3e3e3;
             }
             #header {
                 position: relative;
@@ -76,11 +77,11 @@
             }
 
             #navpad {
-                height:0px;;
+                height:0px;
             }
 
-            #resume {
-                margin-top:90px;
+            #me {
+                margin-top:20px;
             }
 
             .text {
@@ -107,6 +108,34 @@
                 padding:0px;
                 margin:0px;
             }
+
+            section {
+                background-color: #fff;
+                min-width: 820px;
+                max-width: 1140px;
+                margin:auto;
+                margin-top:20px;
+            }
+
+            #rowcols {
+                flex-flow:row wrap;
+            }
+
+            #rowcols span{
+                display: block;
+                float: left;
+                background-color: #fff;
+                width: 30%;
+                height: 300px;
+                margin: auto;
+            }
+
+            .container .heading{
+                margin:0;
+                padding:0;
+                font-size:26px;
+            }
+
         </style>
     </head>
 <body>
@@ -131,13 +160,21 @@
         </ul>
     </nav>
     <div id="navpad" class="container"></div>
-    <section id ="resume" class="section">
+    <section id="me" class="section">
         <div class="container">
-            <h2>My Resume</h2>
-            <div class="row">
-
+            <div style="padding:10px">
+                <h2 class="heading">About Me</h2>
+                <p>I'm a Data Analyst & BI Developer, experienced in extracting, interrogating, and analysing data to provide insight through accurate and consistent reports. I’m self-motivated and passionate about data, continuously building on my existing skillset to develop my potential.</p>
             </div>
         </div>
+    </section>
+    <section class="section">
+        <div style="min-width: 300px">test</div>
+        <div style="width:30%">test</div>
+        <div style="width:30%">test</div>
+    
+    </section>
+    <section>
         <p>test</p>
         <p>test</p>
         <p>test</p>
