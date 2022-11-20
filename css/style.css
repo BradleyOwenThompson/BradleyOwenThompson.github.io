@@ -1,15 +1,23 @@
 *{padding: 0px; margin: 0px; box-sizing: border-box;}
+
+html{
+    font-family:  'Open Sans', sans-serif;
+     -webkit-font-smoothing: antialiased;
+}
+
 body{height: 900px;}
+
 header {
 	background: url('../images/header-background.jpg');
-	text-align: center;
+	text-align: left;
 	width: 100%;
 	height: auto;
 	background-size: cover;
 	background-attachment: fixed;
 	position: relative;
-	overflow: hidden;
+    overflow:hidden;
 }
+
 header .overlay{
 	width: 100%;
 	height: 100%;
@@ -19,39 +27,49 @@ header .overlay{
     background-image: linear-gradient( 169deg, #003d806b 10%, #00000099 100%);
 }
 
-header .overlay img {
-    width: 100%; 
-    max-width: 20em;
+header .avatar{
+    text-align: center;
+}
+
+header .avatar img {
+    width: 60%;
     border-radius: 50%;                 
-    border: 4px solid #666;
-    padding: 4px;
-    background-color: #fff;
+    border: 4px solid #ffff;
 }
 
-h1 {
+#header .text-content h1 {
 	font-family: 'Open Sans', sans-serif;
-	font-size: 80px;
-	margin-bottom: 10px;
-    margin-top: 0px;
-}
-
-h2 {
-	font-family: 'Open Sans', sans-serif;
+	font-size: 65px;
+    margin:0;
+    width: 100%;
 	margin-bottom: 10px;
 }
 
-h3 {
+#header .text-content h2 {
 	font-family: 'Open Sans', sans-serif;
 	margin-bottom: 10px;
+    font-size: 30px;
 }
 
-p {
+#header .text-content h3 {
 	font-family: 'Open Sans', sans-serif;
-	margin-bottom: 30px;
-    font-size: 20px;
+	margin-bottom: 10px;
+    font-size: 23px;
+}
+
+#header .text-content p {
+    margin-top: 20px;
+    margin-bottom: 10px;
+	font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
 }
 
 .container {
     max-width: 70em;
     margin: auto;
+}
+
+#navbar {
+    background-color: #fff;
+    border-bottom:2px solid #e3e3e3;
 }
