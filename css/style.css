@@ -69,7 +69,7 @@ header {
 header .overlay{
 	width: 100%;
 	height: 100%;
-	padding: 50px;
+	padding: 25px 15px 15px 15px;
 	color: #FFF;
 	text-shadow: 1px 1px 1px #333;
     background-image: linear-gradient( 169deg, #003d806b 10%, #00000099 100%);
@@ -143,6 +143,7 @@ header .avatar img {
     border-radius: 10px; 
     border: 1.5px solid #e3e3e3;
     padding: 10px;
+    font-size: 14px;
 }
 
 .section .bubble_container .content h3{
@@ -164,7 +165,6 @@ header .avatar img {
 }
 
 .section .bubble_container .content p{
-    font-size: 14px;
     margin-top: 2px; 
     text-align: center;
 }
