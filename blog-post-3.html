@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>Bradley Thompson - Advanced SQL: Window Functions</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bradley Thompson - My Experience At PayPoint. I'm happy to share that PayPoint has included me in the “meet the team” section of their careers page on their corporate website.">
+    <meta name="author" content="Bradley Thompson">  
+	<link type="image/png" sizes="96x96" rel="icon" href="favicon.png">  
+
+	<!-- Facebook Meta Tags -->
+	<meta property="og:url" content="https://bradleyowenthompson.github.io/blog-post.html">
+	<meta property="og:title" content="My Experience At PayPoint">
+	<meta property="og:description" content="My Experience At PayPoint. I'm happy to share that PayPoint has included me in the “meet the team” section of their careers page on their corporate website.">
+	<meta property="og:image" content="https://bradleyowenthompson.github.io/assets/images/blog/post-1-1200x630.png">
+	
+	<meta property="og:image:width" content="1200"/>
+	<meta property="og:image:height" content="630"/>
+	
+	<!-- Twitter Meta Tags -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta property="twitter:domain" content="bradleyowenthompson.github.io">
+	<meta property="twitter:url" content="https://bradleyowenthompson.github.io/blog-post.html">
+	<meta name="twitter:title" content="My Experience At PayPoint">
+	<meta name="twitter:description" content="My Experience At PayPoint. I'm happy to share that PayPoint has included me in the “meet the team” section of their careers page on their corporate website.">
+	<meta name="twitter:image" content="https://bradleyowenthompson.github.io/assets/images/blog/post-1-1200x630.png">
+
+
+    
+    <!-- FontAwesome JS-->
+    <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+    
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/monokai-sublime.min.css">
+    
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-5.css">
+    
+
+</head> 
+
+<body>
+    
+	<!-- Header  -->
+    <header class="header text-center">	    
+	    <h1 class="blog-name pt-lg-4 mb-0"><a href="index.html">Bradley Thompson</a></h1>
+        
+	    <nav class="navbar navbar-expand-lg navbar-dark" >
+           
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div id="navigation" class="collapse navbar-collapse flex-column" >
+				<div class="profile-section pt-3 pt-lg-0">
+				    <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.png" alt="image" >			
+					
+					<div class="bio mb-3">Focused on data engineering and analysis. Hungry to keep learning.
+						<br>
+						<a href="about.html">Find out more about me</a>
+					</div><!--//bio-->
+
+					
+
+					<ul class="social-list list-inline py-3 mx-auto">
+			            <!-- <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li> -->
+			            <li class="list-inline-item"><a href="https://uk.linkedin.com/in/bradley-thompson-1aa575172" target="_blank"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="https://github.com/BradleyOwenThompson" target="_blank"><i class="fab fa-github-alt fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="https://stackoverflow.com/users/22375216/bradley-thompson" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
+			            <!-- <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li> -->
+			        </ul><!--//social-list-->
+			        <hr> 
+				</div><!--//profile-section-->
+				
+				<ul class="navbar-nav flex-column text-left">
+					<li class="nav-item active">
+					    <a class="nav-link" href="index.html"><i class="fas fa-home fa-fw mr-2"></i>Home<span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw mr-2"></i>About Me</a>
+					</li>
+				</ul>
+				
+				<div class="my-2 my-md-3">
+				    <a class="btn btn-primary" href="https://uk.linkedin.com/in/bradley-thompson-1aa575172" target="_blank">Get in Touch</a>
+				</div>
+			</div>
+		</nav>
+    </header>
+	<!-- End Header -->
+
+    
+    <div class="main-wrapper">
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container">
+				<a class="btn btn-primary mb-3" href="./index.html"><i class="fas fa-home fa-fw mr-2"></i>Home</a>
+
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2">Advanced SQL: Window Functions</h2>
+				    <div class="meta mb-3">
+						<span>SQL, Informative</span>
+						<!-- <span class="date">1st September 2023</span> -->
+					</div>
+			    </header>
+			    
+			    <div class="blog-post-body">
+				    <figure class="blog-banner">
+				        <img class="img-fluid" src="assets/images/blog/post-3.png" alt="image"/>
+				        <!-- <figcaption class="mt-2 text-center image-caption">Screenshot From PayPoint Corporate Careers Page: <a href="https://corporate.paypoint.com/careers/meet" target="_blank">View The Page</a></figcaption> -->
+				    </figure>
+
+                    <p>Window functions are an advanced type of function that allows us to perform calculations across a set of table rows that are somehow related to the current row, returning a single value for each row.</p>
+				    
+                    <h3 class="mt-4 mb-2">What is a window?</h3>
+                    <p>A window consists of a group of rows that are related in some way. The relation could be by location (e.g. city), time (e.g. days, month), or that they happen to be in the same result set. Calculations are made over this subset of data.</p>
+
+                    <h3 class="mt-4 mb-2">Simple Window Function</h3>
+                    <p>The <i>OVER()</i> clause must be used to create a basic window function. By default, this will treat the entire result set as a single partition if no parameters are provided.</p>
+                    <p>I have created a dataset in Snowflake for testing the below queries. You may need to adapt these to make them compatible with your DBMS. The dataset contains the volume of three retail locations, across three days and two cities.</p>
+                    
+                    <b>Create The Dataset:</b>
+                    <code>-- Create Table
+CREATE TRANSIENT TABLE store_sales (
+    store_ID          INTEGER,
+    day               INTEGER,
+    city              VARCHAR,
+    gross_sales       NUMERIC(9, 2)
+);
+    
+-- Insert Data
+INSERT INTO store_sales VALUES 
+    (1, 1, 'London', 100), 
+    (1, 2, 'London', 123),
+    (1, 3, 'London', 67),
+    (2, 1, 'Manchester', 738), 
+    (2, 2, 'Manchester', 673),
+    (2, 3, 'Manchester', 523),
+    (3, 1, 'London', 642),
+    (3, 2, 'London', 673),
+    (3, 3, 'London', 512);
+                    </code>
+                    <b>Window Function Using SUM():</b>
+                    <p>Let's perform as regular SUM() aggregation where Day = 1. This returns 1,480 total gross sales across the dataset.</p>
+                    <code>SELECT 
+    SUM(GROSS_SALES) AS total_sales
+FROM store_sales
+WHERE 
+    day = 1 </code>
+
+                    <p>We want to know what stores contributed the most to this figure. This is a perfect use case for using a window function. We can add the “OVER()” clause to our SUM() to create a window across the result set. Now each row also contains the total gross_sales across the result set. We can use this to show each row's contribution to the total gross sales as a percentage.</p>
+                    <code>SELECT 
+    store_ID,
+    day,
+    city,
+    gross_sales,
+    SUM(gross_sales) OVER() AS total_sales,
+    gross_sales / SUM(gross_sales) OVER() AS sales_contribution
+FROM store_sales
+WHERE 
+    day = 1
+
+</code>
+                    <b>Results:</b>
+                    <table class="table table-striped my-2">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">STORE_ID</th>
+								<th scope="col">DAY</th>
+								<th scope="col">CITY</th>
+								<th scope="col">GROSS_SALES</th>
+								<th scope="col">TOTAL_SALES</th>
+								<th scope="col">SALES_CONTRIBUTION</th>
+							</tr>
+						</thead>
+						<tbody>
+                            <tr>
+								<th scope="row">1</th>
+								<td>1</td>
+								<td>1</td>
+								<td>London</td>
+								<td>100</td>
+								<td>1480</td>
+								<td>0.06756757</td>
+							</tr>
+							<tr>
+								<th scope="row">2</th>
+								<td>2</td>
+								<td>1</td>
+								<td>Manchester</td>
+								<td>738</td>
+								<td>1480</td>
+								<td>0.49864865</td>
+							</tr>
+							<tr>
+								<th scope="row">3</th>
+								<td>3</td>
+								<td>1</td>
+								<td>London</td>
+								<td>642</td>
+								<td>1480</td>
+								<td>0.43378378</td>
+							</tr>
+                        </tbody>
+                    </table>
+                    
+                    <h3 class="mt-4 mb-2">PARTITON BY Clause</h3>
+                    <p>The <i>PARTITION_BY</i> clause allows us to split the results set into partitions. The window function is applied to each partition separately, with the computations restarting for each partition. If no <i>PARTITION_BY</i> is specified, the function treats all rows of the query result set as a single partition (as seen previously).</p>
+                    <p>We are able to calculate the total gross_sales by city, and also calculate which stores contributed the most to the gross sales for each city.</p>
+
+                    <code>SELECT 
+    store_ID,
+    day,
+    city,
+    gross_sales,
+    SUM(GROSS_SALES) OVER(PARTITION BY city) AS total_sales,
+    gross_sales / SUM(GROSS_SALES) OVER(PARTITION BY city) AS totasales_contribution
+FROM store_sales
+WHERE
+    day = 1
+                    </code>
+
+                    <b>Results</b>
+                    <table class="table table-striped my-2">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">STORE_ID</th>
+								<th scope="col">DAY</th>
+								<th scope="col">CITY</th>
+								<th scope="col">GROSS_SALES</th>
+								<th scope="col">TOTAL_SALES</th>
+								<th scope="col">SALES_CONTRIBUTION</th>
+							</tr>
+						</thead>
+						<tbody>
+                            <tr>
+								<th scope="row">1</th>
+								<td>1</td>
+								<td>1</td>
+								<td>London</td>
+								<td>100</td>
+								<td>742</td>
+								<td>0.13477089</td>
+							</tr>
+							<tr>
+								<th scope="row">2</th>
+								<td>2</td>
+								<td>1</td>
+								<td>Manchester</td>
+								<td>738</td>
+								<td>738</td>
+								<td>1.00000000</td>
+							</tr>
+							<tr>
+								<th scope="row">3</th>
+								<td>3</td>
+								<td>1</td>
+								<td>London</td>
+								<td>642</td>
+								<td>741</td>
+								<td>0.86522911</td>
+							</tr>
+                        </tbody>
+                    </table>
+
+
+                    <h3 class="mt-4 mb-2">ORDER BY Clause</h3>
+                    <p>The <i>ORDER BY</i> clause defines the logical order of the rows within each partition. If this has not been, defined the default order is ascending. Some queries and functiosn are can be order-sensitive and are dependent on the order of the rows.</p>
+
+                    <p>Types of order sensitive window functions:</p>
+                    <ul>
+                        <li>Rank-Related Window Functions</li>
+                        <li>Window Frame Functions</li>
+                    </ul>
+
+                    <h3 class="mt-4 mb-2">Rank-Related Window Functions</h3>
+                    <p>Rank realted window functions provide a rank which is the order of a row in an ordered window of rows. The first row in the window has rank 1, the second rank 2, etc. Rank doesn’t automatically sort the rows, so the <i>ORDER BY</i> sub clause must be used.</p>
+
+                    <p><i>ROW_NUMBER()</i> allows us to return a unique number for all rows, sequentially. Even if two rows have the same value, they will still be sequentially numbered.</p>
+
+                    <p><i>RANK()</i> works similar to <i>ROW__NUMBER()</i>, but will provide the same numeric values for ties. This can leave a gap in the ranking. <i>DENSE_RANK()</i> works similar to <i>RANK()</i>, but with no gaps in the ranking values. The row value is the rank of a specific row, plus the number of distinct rank values that come before that specific row.</p>
+
+                    <code>SELECT
+   store_id,
+   day,
+   city,
+   gross_sales,
+   ROW_NUMBER() OVER (ORDER BY gross_sales DESC) ROW_NUMBER,
+   RANK() OVER (ORDER BY gross_sales DESC) RANK,
+   DENSE_RANK() OVER (ORDER BY gross_sales DESC) DENSE_RANK
+FROM store_sales
+
+                    </code>
+                    <b>Results:</b>
+                    <table class="table table-striped my-2">
+                        <thead>
+                                <tr>
+                                <th scope="row">#</th>
+                                <th scope="col">STORE_ID</th>
+                                <th scope="col">DAY</th>
+                                <th scope="col">CITY</th>
+                                <th scope="col">GROSS_SALES</th>
+                                <th scope="col">ROW_NUMBER</th>
+                                <th scope="col">RANK</th>
+                                <th scope="col">DENSE_RANK</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>2</td>
+                                <td>1</td>
+                                <td>Manchester</td>
+                                <td>738.00</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>Manchester</td>
+                                <td>673.00</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>3</td>
+                                <td>2</td>
+                                <td>London</td>
+                                <td>673.00</td>
+                                <td>3</td>
+                                <td>2</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <td>3</td>
+                                <td>1</td>
+                                <td>London</td>
+                                <td>642.00</td>
+                                <td>4</td>
+                                <td>4</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">5</th>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>Manchester</td>
+                                <td>523.00</td>
+                                <td>5</td>
+                                <td>5</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">6</th>
+                                <td>3</td>
+                                <td>3</td>
+                                <td>London</td>
+                                <td>512.00</td>
+                                <td>6</td>
+                                <td>6</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">7</th>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>London</td>
+                                <td>123.00</td>
+                                <td>7</td>
+                                <td>7</td>
+                                <td>6</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">8</th>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>London</td>
+                                <td>100.00</td>
+                                <td>8</td>
+                                <td>8</td>
+                                <td>7</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">9</th>
+                                <td>1</td>
+                                <td>3</td>
+                                <td>London</td>
+                                <td>67.00</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>8</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+                    <!-- <p>I'm happy to share that PayPoint has included me in the “meet the team” section of their careers page on their corporate website. This is a great opportunity for me to share my experience working at PayPoint.</p>
+				    
+					<p><a href="https://corporate.paypoint.com/our-proposition/model" target="_blank">PayPoint PLC</a> is a FTSE 250 company from the UK that provides services to convenience stores, online merchants and consumers. These services include Payment & Banking, Parcels, and Retail Services.</p>
+
+					<p>You can read about my experience on the <a href="https://corporate.paypoint.com/careers/meet" target="_blank">website</a>, but I have also shared my experience below.</p>
+
+					<h3 class="mt-4 mb-2">How long have you been working at PayPoint and what role do you do?</h3>
+					<p>I am a Data Analyst in the Data Analytics Team, situated in Finance. My journey at PayPoint started with a Data Analyst internship in 2018, where I quickly progressed into a permanent position as a Junior Data Analyst. I continued to gain experience and develop in my role, being promoted to Data Analyst. The role requires exploring, transforming, analysing, and presenting data to deliver insights and recommendations for various domains within the business. There are excellent opportunities to work on end-to-end solutions throughout the data pipeline. My day-to-day duties include engaging with stakeholders, data modelling, and developing reports.</p>
+					
+					<h3 class="mt-4 mb-3">What advice would you give someone keen to get into a Data Analyst role?</h3>
+					<p>Staying up to date with the latest technology will always help with your future prospects. At PayPoint, we use tools and languages including (but not limited to) Power BI, Python, SQL, and DAX. Knowledge of data modelling is also essential for understanding how data is related, and for creating your own data models for analysis. These are great to learn for anyone looking to get into a data analysis role. Funded through PayPoint’s apprenticeship program, I obtained a master’s in data science from The University of Exeter. I also have a bachelor’s degree in computer science from the University of Kent.</p>
+					
+					<h3 class="mt-4 mb-3">What are the best bits about working at PayPoint?</h3>
+					<p>The people are great! It’s an enjoyable place to work as everyone is friendly. The ability to work from home also makes it a flexible place to work. The direction of the company is very strong, with a positive feel all around. You always get the opportunity to learn new things which you can apply to your role. We get some great benefits too, including an on-site gym which is convenient to use.</p> --> 
+				</div>
+			</div>
+
+			
+		</article>
+	    
+	    
+		<!-- Footer  -->
+	    <footer class="footer text-center py-2 theme-bg-dark"> 
+			<div class="my-2 my-md-3">
+				<a class="btn btn-primary" href="https://uk.linkedin.com/in/bradley-thompson-1aa575172" target="_blank">Get in Touch</a>
+			</div>
+	    </footer>
+		<!-- End Footer  -->
+    
+    </div>
+    
+
+
+    
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/jquery-3.3.1.min.js"></script>
+    <script src="assets/plugins/popper.min.js"></script> 
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/blog.js"></script>
+    
+    <!-- Style Switcher (REMOVE ON YOUR PRODUCTION SITE) -->
+    <script src="assets/js/demo/style-switcher.js"></script>     
+    
+
+</body>
+</html> 
+
