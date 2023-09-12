@@ -403,7 +403,68 @@ FROM store_sales
                         </tbody>
                     </table>
 
+                    <h3 class="mt-4 mb-2">Window Frame Functions</h3>
+                    
+                    <p>A window frame is a sub-group of rows in a window, allowing you to compute values over the sub-group of rows rather than over the entire window.</p>
+                    <p>There are two types of window frames:</p>
+                        
+                    <ol>
+                        <li>Cumulative</li>
+                        <li>Sliding</li>
+                    
+                    </ol>
+                    
+                    <p>These can be calculated using the <i>ROWS BETWEEN</i> clause to specify the lower (starting) and upper (ending) boundary points of the window frame. This is placed after the <i>ORDER BY clause.</i></p>
+                    
+                    <p>The syntax: <i>ROWS BETWEEN &lt;window frame bound> AND &lt;window frame bound>.</i></p>
+                        
+                    <p><b>UNBOUND PRECEDING:</b> Specifies that the window starts at the first row of the partition. This can only be specified as the lower boundary of a window frame. You can define the start point using “<i>&lt;value> PRECEDING</i>”. E.g. “<i>2 PRECEDING</i>”</p>
+                        
+                    <p><b>CURRENT ROW:</b> Specifies that the window frame starts or ends at the current row and can be specified as both the start and end point.</p>
+                        
+                    <p><b>UNBOUNDED FOLLOWING:</b> Specifies that the window ends at the last row of the partition. This can only be specified as the upper boundary of a window frame. You can define the starting point using "<i>&lt;value> FOLLOWING"</i>. E.g. "<i>2 FOLLOWING</i>" defines a window ending with the second row that follows the current row.</p>
 
+                    <h3 class="mt-4 mb-2">Cumulative Window Fram</h3>
+
+                    <p>A cumulative window frame is a variable-width window that starts at a fixed point and grows with each row. An example of this is using daily data to calculate the total gross_sales for a month. A cumulative window frame will start on the first day of the month and grow as each new day's data is added.</p>
+                        
+                    <p>Example of a cumulative window function by store and month, calculating the cumulative sales leading to the end of the month:</p>
+                        
+                    <code>SUM(gross_sales) OVER (PARTITION BY STORE_ID, Month ORDER BY DAY ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)</code>
+
+                    <h3 class="mt-4 mb-2">Sliding Window Frame</h3>
+
+                    <p>
+                        You can define a fixed-width frame that “slides along” the rows in the window, showing you a different slice of the window each time. As the window frame moves along the data, old rows disappear from the frame and new rows appear so that the width of the frame is always the same.
+                    </p>
+                    
+                    <p>This is useful for calculating moving aggregations (calculated using a fixed-size interval that moves). The below example will give the total gross sales for the previous 11 months, and the current month.</p>
+                    
+                    <code>SUM(gross_sales) OVER (PARTITION BY STORE_ID ORDER BY MONTH ROWS BETWEEN 11 PRECEDING AND CURRENT ROW)</code>
+                    
+                    <p>If your data is already aggregated by month, you could produce a 12-month rolling average using:</p>
+                    
+                    <code>AVG(gross_sales) OVER (PARTITION BY STORE_ID ORDER BY MONTH ROWS BETWEEN 11 PRECEDING AND CURRENT ROW)</code>
+
+
+                    <h3 class="mt-4 mb-2">Filtering the results of window functions</h3>
+                    <p>To filter the results of a window function you will need nest the query and filter it. </p>
+
+                    <p><b>Filtering using nesting:</b></p>
+                    <code>SELECT * 
+    FROM (
+        SELECT x, y, z 
+        ROW_NUMBER() OVER (PARTITION BY x ORDER BY z) AS row_num
+    FROM qt
+)
+WHERE row_num = 1</code>
+
+                    <p>Snowflake introduced the <i>QUALIFY</i> clause, simplifying the filtering process on the result of window functions.</p>
+                    <p><b>Filtering using <i>QUALIFY</i>:</b></p>
+                    <code>SELECT x, y, z
+FROM qt
+QUALIFY ROW_NUMBER() OVER (PARTITION BY x ORDER BY z) = 1
+</code>
 
                     <!-- <p>I'm happy to share that PayPoint has included me in the “meet the team” section of their careers page on their corporate website. This is a great opportunity for me to share my experience working at PayPoint.</p>
 				    
