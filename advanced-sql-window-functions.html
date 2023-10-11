@@ -122,7 +122,7 @@
                     <p>I have created a dataset in Snowflake for testing the below queries. You may need to adapt these to make them compatible with your DBMS. The dataset contains the volume of three retail locations, across three days and two cities.</p>
                     
                     <b>Create The Dataset:</b>
-                    <code>-- Create Table
+                    <pre><code>-- Create Table
 CREATE TRANSIENT TABLE store_sales (
     store_ID          INTEGER,
     day               INTEGER,
@@ -141,17 +141,16 @@ INSERT INTO store_sales VALUES
     (3, 1, 'London', 642),
     (3, 2, 'London', 673),
     (3, 3, 'London', 512);
-                    </code>
+                    </code></pre>
                     <b>Window Function Using SUM():</b>
                     <p>Let's perform as regular SUM() aggregation where Day = 1. This returns 1,480 total gross sales across the dataset.</p>
-                    <code>SELECT 
+                    <pre><code>SELECT 
     SUM(GROSS_SALES) AS total_sales
 FROM store_sales
 WHERE 
     day = 1 </code>
-
-                    <p>We want to know what stores contributed the most to this figure. This is a perfect use case for using a window function. We can add the “OVER()” clause to our SUM() to create a window across the result set. Now each row also contains the total gross_sales across the result set. We can use this to show each row's contribution to the total gross sales as a percentage.</p>
-                    <code>SELECT 
+<p>We want to know what stores contributed the most to this figure. This is a perfect use case for using a window function. We can add the “OVER()” clause to our SUM() to create a window across the result set. Now each row also contains the total gross_sales across the result set. We can use this to show each row's contribution to the total gross sales as a percentage.</p>
+<code>SELECT 
     store_ID,
     day,
     city,
@@ -162,7 +161,7 @@ FROM store_sales
 WHERE 
     day = 1
 
-</code>
+</code></pre>
                     <b>Results:</b>
                     <table class="table table-striped my-2">
 						<thead>
@@ -211,7 +210,7 @@ WHERE
                     <p>The <i>PARTITION_BY</i> clause allows us to split the results set into partitions. The window function is applied to each partition separately, with the computations restarting for each partition. If no <i>PARTITION_BY</i> is specified, the function treats all rows of the query result set as a single partition (as seen previously).</p>
                     <p>We are able to calculate the total gross_sales by city, and also calculate which stores contributed the most to the gross sales for each city.</p>
 
-                    <code>SELECT 
+                    <pre><code>SELECT 
     store_ID,
     day,
     city,
@@ -221,7 +220,7 @@ WHERE
 FROM store_sales
 WHERE
     day = 1
-                    </code>
+                    </code></pre>
 
                     <b>Results</b>
                     <table class="table table-striped my-2">
@@ -284,7 +283,7 @@ WHERE
 
                     <p><i>RANK()</i> works similar to <i>ROW__NUMBER()</i>, but will provide the same numeric values for ties. This can leave a gap in the ranking. <i>DENSE_RANK()</i> works similar to <i>RANK()</i>, but with no gaps in the ranking values. The row value is the rank of a specific row, plus the number of distinct rank values that come before that specific row.</p>
 
-                    <code>SELECT
+                    <pre><code>SELECT
    store_id,
    day,
    city,
@@ -292,9 +291,7 @@ WHERE
    ROW_NUMBER() OVER (ORDER BY gross_sales DESC) ROW_NUMBER,
    RANK() OVER (ORDER BY gross_sales DESC) RANK,
    DENSE_RANK() OVER (ORDER BY gross_sales DESC) DENSE_RANK
-FROM store_sales
-
-                    </code>
+FROM store_sales</code></pre>
                     <b>Results:</b>
                     <table class="table table-striped my-2">
                         <thead>
@@ -430,7 +427,7 @@ FROM store_sales
                         
                     <p>Example of a cumulative window function by store and month, calculating the cumulative sales leading to the end of the month:</p>
                         
-                    <code>SUM(gross_sales) OVER (PARTITION BY STORE_ID, Month ORDER BY DAY ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)</code>
+                    <pre><code>SUM(gross_sales) OVER (PARTITION BY STORE_ID, Month ORDER BY DAY ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)</code></pre>
 
                     <h3 class="mt-4 mb-2">Sliding Window Frame</h3>
 
@@ -440,47 +437,33 @@ FROM store_sales
                     
                     <p>This is useful for calculating moving aggregations (calculated using a fixed-size interval that moves). The below example will give the total gross sales for the previous 11 months, and the current month.</p>
                     
-                    <code>SUM(gross_sales) OVER (PARTITION BY STORE_ID ORDER BY MONTH ROWS BETWEEN 11 PRECEDING AND CURRENT ROW)</code>
+                    <pre><code>SUM(gross_sales) OVER (PARTITION BY STORE_ID ORDER BY MONTH ROWS BETWEEN 11 PRECEDING AND CURRENT ROW)</code></pre>
                     
                     <p>If your data is already aggregated by month, you could produce a 12-month rolling average using:</p>
                     
-                    <code>AVG(gross_sales) OVER (PARTITION BY STORE_ID ORDER BY MONTH ROWS BETWEEN 11 PRECEDING AND CURRENT ROW)</code>
+                    <pre><code>AVG(gross_sales) OVER (PARTITION BY STORE_ID ORDER BY MONTH ROWS BETWEEN 11 PRECEDING AND CURRENT ROW)</code></pre>
 
 
                     <h3 class="mt-4 mb-2">Filtering the results of window functions</h3>
                     <p>To filter the results of a window function you will need nest the query and filter it. </p>
 
                     <p><b>Filtering using nesting:</b></p>
-                    <code>SELECT * 
+                    <pre><code>SELECT * 
     FROM (
         SELECT x, y, z 
         ROW_NUMBER() OVER (PARTITION BY x ORDER BY z) AS row_num
     FROM qt
 )
-WHERE row_num = 1</code>
+WHERE row_num = 1</code></pre>
 
                     <p>Snowflake introduced the <i>QUALIFY</i> clause, simplifying the filtering process on the result of window functions.</p>
                     <p><b>Filtering using <i>QUALIFY</i>:</b></p>
-                    <code>SELECT x, y, z
+                    <pre><code>SELECT x, y, z
 FROM qt
 QUALIFY ROW_NUMBER() OVER (PARTITION BY x ORDER BY z) = 1
-</code>
+</code></pre>
 
-                    <!-- <p>I'm happy to share that PayPoint has included me in the “meet the team” section of their careers page on their corporate website. This is a great opportunity for me to share my experience working at PayPoint.</p>
-				    
-					<p><a href="https://corporate.paypoint.com/our-proposition/model" target="_blank">PayPoint PLC</a> is a FTSE 250 company from the UK that provides services to convenience stores, online merchants and consumers. These services include Payment & Banking, Parcels, and Retail Services.</p>
-
-					<p>You can read about my experience on the <a href="https://corporate.paypoint.com/careers/meet" target="_blank">website</a>, but I have also shared my experience below.</p>
-
-					<h3 class="mt-4 mb-2">How long have you been working at PayPoint and what role do you do?</h3>
-					<p>I am a Data Analyst in the Data Analytics Team, situated in Finance. My journey at PayPoint started with a Data Analyst internship in 2018, where I quickly progressed into a permanent position as a Junior Data Analyst. I continued to gain experience and develop in my role, being promoted to Data Analyst. The role requires exploring, transforming, analysing, and presenting data to deliver insights and recommendations for various domains within the business. There are excellent opportunities to work on end-to-end solutions throughout the data pipeline. My day-to-day duties include engaging with stakeholders, data modelling, and developing reports.</p>
-					
-					<h3 class="mt-4 mb-3">What advice would you give someone keen to get into a Data Analyst role?</h3>
-					<p>Staying up to date with the latest technology will always help with your future prospects. At PayPoint, we use tools and languages including (but not limited to) Power BI, Python, SQL, and DAX. Knowledge of data modelling is also essential for understanding how data is related, and for creating your own data models for analysis. These are great to learn for anyone looking to get into a data analysis role. Funded through PayPoint’s apprenticeship program, I obtained a master’s in data science from The University of Exeter. I also have a bachelor’s degree in computer science from the University of Kent.</p>
-					
-					<h3 class="mt-4 mb-3">What are the best bits about working at PayPoint?</h3>
-					<p>The people are great! It’s an enjoyable place to work as everyone is friendly. The ability to work from home also makes it a flexible place to work. The direction of the company is very strong, with a positive feel all around. You always get the opportunity to learn new things which you can apply to your role. We get some great benefits too, including an on-site gym which is convenient to use.</p> --> 
-				</div>
+          </div>
 			</div>
 
 			
