@@ -119,52 +119,49 @@
                     </ul>
                     
                     <h3 class="mt-4 mb-2">The below code scrapes two stores and prints out the results</h3>
-                    <pre><code>from ProductScraper.StoreScraper import StoreScraper
-
+                    <pre><code>from StoreScraper.StoreScraper import StoreScraper
+						
 scraper = StoreScraper()
-
+						
 result1 = scraper.get_information("https://www.argos.co.uk/product/8992866")
-
-result2 = scraper.get_information("https://www.thetoyshop.com/collectibles/adult-collectibles/DC-C"
-                                  "omics-30cm-Superman-Figure/p/545842?queryId=83dec2295943aff8586"
-                                  "c518c6f031006"
-                                  )
-
+						
+result2 = scraper.get_information("https://www.thetoyshop.com/collectibles/adult-collectibles/DC-Comics-30cm-Superman-Figure/p/545842?queryId=83dec2295943aff8586c518c6f031006")
+						
 print(result1)
 print(result2)</code></pre>
 
                     
                     <h3 class="mt-4 mb-2">Result 1 Output</h3>
                     <pre><code>{
-    "url": "https://www.argos.co.uk/product/8992866",
-    "start_datetime": "2023-10-11 19:55:14.920228",
-    "end_datetime": "2023-10-11 19:55:15.296868",
-    "status": "success",
-    "errors": 0,
-    "error_messages": [],
-    "parser": "Argos",
-    "item_name": "DC 12-inch Superman Figure",
-    "category_one": None,
-    "category_two": None,
-    "category_three": None,
-    "price": "£10.00",
-    "image_url": "//media.4rgos.it/i/Argos/8992866_R_Z001A?w=750&h=440&qlt=70"
+	"url": "https: //www.argos.co.uk/product/8992866",
+	"start_datetime": "2023-10-12 12:31:09.102859",
+	"end_datetime": "2023-10-12 12:31:09.660612",
+	"status": "success",
+	"errors": 0,
+	"error_messages": [],
+	"parser": "Argos",
+	"item_name": "DC 12-inch Superman Figure",
+	"category_one": "Toys",
+	"category_two": "Playsets and figures",
+	"category_three": None,
+	"price": "£10.00",
+	"image_url": "//media.4rgos.it/i/Argos/8992866_R_Z001A?w=750&h=440&qlt=70"
 }</code></pre>
                     <h3 class="mt-4 mb-2">Result 2 Output</h3>
                     <pre><code>{
-    "url": "https://www.thetoyshop.com/collectibles/adult-collectibles/DC-Comics-30cm-Superman-Figure/p/545842?queryId=83dec2295943aff8586c518c6f031006",
-    "start_datetime": "2023-10-11 19:55:15.328904",
-    "end_datetime": "2023-10-11 19:55:15.604712",
-    "status": "success",
-    "errors": 0,
-    "error_messages": [],
-    "parser": "TheEntertainer",
-    "item_name": "DC Comics 30cm Superman Figure",
-    "category_one": "Collectible Toys",
-    "category_two": "Adult Collectibles",
-    "category_three": None,
-    "price": "£10.00",
-    "image_url": "https://www.thetoyshop.com/medias/545842-Primary-515Wx515H?context=bWFzdGVyfGltYWdlc3wzNzgxM3xpbWFnZS9qcGVnfGFXMWhaMlZ6TDJnNE55OW9PRFF2T1RJeE9ESTVPRFV4TVRNNU1DNXFjR2N8NmYxOGNkNmIwZWYxNjE0YzVjZWU5N2FhNGRiZGIyMmM0Zjk0NmY4NDhiNzU3YTc3MWVkODkwZWM4NDllNjA1ZA"
+	"url": "https://www.thetoyshop.com/collectibles/adult-collectibles/DC-Comics-30cm-Superman-Figure/p/545842?queryId=83dec2295943aff8586c518c6f031006",
+	"start_datetime": "2023-10-12 12:31:09.698567",
+	"end_datetime": "2023-10-12 12:31:10.002384",
+	"status": "success",
+	"errors": 0,
+	"error_messages": [],
+	"parser": "TheEntertainer",
+	"item_name": "DC Comics 30cm Superman Figure",
+	"category_one": "Collectible Toys",
+	"category_two": "Adult Collectibles",
+	"category_three": None,
+	"price": "£10.00",
+	"image_url": "https://www.thetoyshop.com/medias/545842-Primary-515Wx515H?context=bWFzdGVyfGltYWdlc3wzNzgxM3xpbWFnZS9qcGVnfGFXMWhaMlZ6TDJnNE55OW9PRFF2T1RJeE9ESTVPRFV4TVRNNU1DNXFjR2N8NmYxOGNkNmIwZWYxNjE0YzVjZWU5N2FhNGRiZGIyMmM0Zjk0NmY4NDhiNzU3YTc3MWVkODkwZWM4NDllNjA1ZA"
 }</code></pre>
 
                 </div>
